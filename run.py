@@ -27,12 +27,12 @@ def show_board(board):
     print("X = Hit, - = Miss\n")
     print("  A B C D E F")
     print("  #-#-#-#-#-#")
-    row_num = 1
+    row_num = 0
     for row in board:
         print("%d|%s|" % (row_num, "|".join(row)))
         row_num += 1
 
-alpha_to_num = {"A":0, "B":1, "C":2, "D":3, "E":4, "F":5,}
+alpha_to_num = {"A":0, "B":1, "C":2, "D":3, "E":4, "F":5}
 
 
 def create_ships(board):
@@ -40,9 +40,27 @@ def create_ships(board):
     creates 3 random ship on the hidden board and check to avoid
     placing ships on the sma spot
     """
-    for x in range(3):
+    for i in range(3):
         ship_row, ship_col = randint(0, 5), randint(0, 5)
         while board[ship_row][ship_col] == "X":
             ship_row, ship_col = randint(0, 5), randint(0, 5)
         board[ship_row][ship_col] = "X"
+
+
+def player_ship_location():
+    """
+    Collects player row and column guesses and validates if they
+    are the required data.
+    """
+    row = input("Guess a Row: ")
+    while row not in "123456":
+        print("Invalid Row. Guess should be between 1-6")
+        row = input("Guess a Row: ")
+    col = input("Guess a Col: ").upper()
+    while col not in "ABCDEF":
+        print("Invalid Column. Guess should be between A-F")
+        col = input("Guess a Col: ").upper()
+    return int(row) - 1, alpha_to_num[col]
+
+
 

@@ -2,17 +2,17 @@ from random import randint
 
 
 """
-BOARD_1 is for displaying the ship locations and it is hidden
-while BOARD_2 is for diplaying player guesses and is shown
+The first board is for displaying the ship locations and it is hidden
+while the second is for diplaying player guesses and is shown
 """
-BOARD_1 = []
+RANDOM_BOARD = []
 for x in range(6):
-    BOARD_1.append([" "] * 6)
-BOARD_2 = []
+    RANDOM_BOARD.append([" "] * 6)
+PLAYER_BOARD = []
 for x in range(6):
-    BOARD_2.append([" "] * 6)
+    PLAYER_BOARD.append([" "] * 6)
 
-print("******WELCOME TO BATTLESHIP******\n")
+print("******WELCOME TO FUNTIME BATTLESHIPS******\n")
 
 
 def show_board(board):
@@ -21,18 +21,18 @@ def show_board(board):
     """
     print("=================================")
     print("Guess a row and column to hit")
-    print("Row must be between 1-6")
-    print("Column must be between A-F")
+    print("Row Guess: 1-6, Column Guess: A-F")
     print("=================================")
     print("X = Hit, - = Miss\n")
     print("  A B C D E F")
     print("  #-#-#-#-#-#")
-    row_num = 0
+
+    row_num = 1
     for row in board:
         print("%d|%s|" % (row_num, "|".join(row)))
         row_num += 1
 
-alpha_to_num = {"A":0, "B":1, "C":2, "D":3, "E":4, "F":5}
+alpha_to_num = {'A':0, 'B':1, 'C':2, 'D':3, 'E':4, 'F':5}
 
 
 def create_ships(board):
@@ -63,4 +63,39 @@ def player_ship_location():
     return int(row) - 1, alpha_to_num[col]
 
 
+def count_ships(board):
+    """
+    Counts the number of hits and check if it is equal
+    to 3 within the allowed turns.
+    """
+    count = 0
+    for row in board:
+        for col in row:
+            if col == "X":
+                count += 1
+    return count
+    
+create_ships(RANDOM_BOARD)
+turns = 6
+while turns > 0:
+    show_board(PLAYER_BOARD)
+    row, col = player_ship_location()
+    if PLAYER_BOARD[row][col] == "-" or PLAYER_BOARD[row][col] == "X":
+        print("Already guessed. Make a new guess")
+    elif RANDOM_BOARD[row][col] == "X":
+        print("Hurray! It's a HIT")
+        PLAYER_BOARD[row][col] = "X"
+        turns -= 1
+    else:
+        print("Sorry, It's a MISS!")
+        PLAYER_BOARD[row][col] = "-"
+        turns -= 1
+    if count_ships(PLAYER_BOARD) == 3:
+        print("You win!")
+        print("Congratulations! You've sunk the ship")
+        break
+    print(f"You have {turns} turns left\n")
+    if turns == 0:
+        print("You ran out of turns")
+        print("GAME OVER")
 

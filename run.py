@@ -53,10 +53,10 @@ def player_ship_location():
     Collects player row and column guesses and validates if they
     are the required data.
     """
-    row = input("Guess a Row: ")
+    row = input("Guess a Row: \n")
     while row not in "123456":
         print("Invalid Row. Guess should be between 1-6")
-        row = input("Guess a Row: ")
+        row = input("Guess a Row: \n")
     col = input("Guess a Col: ").upper()
     while col not in "ABCDEF":
         print("Invalid Column. Guess should be between A-F")

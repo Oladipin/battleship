@@ -32,7 +32,8 @@ def show_board(board):
         print("%d|%s|" % (row_num, "|".join(row)))
         row_num += 1
 
-alpha_to_num = {'A':0, 'B':1, 'C':2, 'D':3, 'E':4, 'F':5}
+
+alpha_to_num = {'A': 0, 'B': 1, 'C': 2, 'D': 3, 'E': 4, 'F': 5}
 
 
 def create_ships(board):
@@ -74,7 +75,8 @@ def count_ships(board):
             if col == "X":
                 count += 1
     return count
-    
+
+
 create_ships(RANDOM_BOARD)
 turns = 6
 while turns > 0:
@@ -98,4 +100,3 @@ while turns > 0:
     if turns == 0:
         print("You ran out of turns")
         print("GAME OVER")
-
